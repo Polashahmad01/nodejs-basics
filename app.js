@@ -3,6 +3,7 @@ const path = require('path');
 const rootDir = require('./util/path')
 
 const express = require('express');
+const expressHbs = require('express-handlebars');
 
 const app = express();
 
@@ -13,8 +14,14 @@ const shopRoutes = require('./routes/shop');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.set('view engine', 'pug');
-app.set('views',  'views');
+//Express Handlebars
+app.engine('hbs', expressHbs({ layoutsDir: 'views/layouts', defaultLayout: 'main-layout', extname: 'hbs'}));
+app.set('view engine', 'hbs');
+app.set('views', 'views');
+
+//Pug
+// app.set('view engine', 'pug');
+// app.set('views',  'views');
 
 // app.use((req, res, next) => {
 //   console.log('In the middleware');
