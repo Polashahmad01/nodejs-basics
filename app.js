@@ -30,7 +30,7 @@ app.use('/admin', adminData.routes);
 app.use(shopRoutes);
 
 app.use((req, res, next) => {
-  res.render('page-not-found');
+  res.render('page-not-found', { pageTitle: 'Page Not Found'});
 });
 
 app.listen(3000);
