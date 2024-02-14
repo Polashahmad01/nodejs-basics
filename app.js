@@ -5,9 +5,11 @@ const rootDir = require('./util/path')
 const express = require('express');
 // const expressHbs = require('express-handlebars');
 
+const errorsController = require('./controllers/error');
+
 const app = express();
 
-const adminData = require('./routes/admin');
+const adminRoutes = require('./routes/admin');
 
 const shopRoutes = require('./routes/shop');
 
@@ -37,11 +39,9 @@ app.set('views', 'views');
 //   next();
 // });
 
-app.use('/admin', adminData.routes);
+app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
-app.use((req, res, next) => {
-  res.render('page-not-found', { pageTitle: 'Page Not Found', path: '' });
-});
+app.use(errorsController.get404);
 
 app.listen(3000);
