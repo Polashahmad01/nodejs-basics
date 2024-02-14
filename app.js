@@ -13,6 +13,9 @@ const shopRoutes = require('./routes/shop');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.set('view engine', 'pug');
+app.set('views',  'views');
+
 // app.use((req, res, next) => {
 //   console.log('In the middleware');
 //   next();
@@ -27,7 +30,7 @@ app.use('/admin', adminData.routes);
 app.use(shopRoutes);
 
 app.use((req, res, next) => {
-  res.sendFile(path.join(rootDir, 'views', 'page-not-found.html'));
+  res.render('page-not-found');
 });
 
 app.listen(3000);
